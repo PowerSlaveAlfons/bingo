@@ -1,0 +1,9 @@
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\bin\Debug\Bongo.exe.config
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\bin\Debug\Bongo.exe
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\bin\Debug\Bongo.pdb
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.csprojResolveAssemblyReference.cache
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.Form1.resources
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.Properties.Resources.resources
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.csproj.GenerateResource.Cache
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.exe
+c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.pdb
