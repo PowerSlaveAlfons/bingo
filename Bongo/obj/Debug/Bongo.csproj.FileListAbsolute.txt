@@ -7,3 +7,13 @@ c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bong
 c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.csproj.GenerateResource.Cache
 c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.exe
 c:\users\s-good\documents\visual studio 2015\Projects\Bongo\Bongo\obj\Debug\Bongo.pdb
+D:\Visual Studio\Bongo\Bongo\bin\Debug\Bongo.exe.config
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.exe
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.pdb
+D:\Visual Studio\Bongo\Bongo\bin\Debug\Bongo.exe
+D:\Visual Studio\Bongo\Bongo\bin\Debug\Bongo.pdb
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.csprojResolveAssemblyReference.cache
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.Form1.resources
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.Properties.Resources.resources
+D:\Visual Studio\Bongo\Bongo\obj\Debug\Bongo.csproj.GenerateResource.Cache
+D:\Visual Studio\Bongo\Bongo\bin\Debug\Goals\TestBingo\Goals.xml
