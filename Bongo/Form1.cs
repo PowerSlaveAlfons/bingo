@@ -10,26 +10,54 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml;
 using System.IO;
-
+using System.Runtime.InteropServices;
 
 namespace Bongo {
 	public partial class Form1 : Form {
 
+		[DllImport("user32.dll")]
+		public static extern IntPtr FindWindow(String sClassName, String sAppName);
+
 		Label[] labels = new Label[25];
+		int selectedLabel = 25;
 		int[] sheetLayout;
+
+		Color[] colors = new Color[] { Color.LightGray, Color.LimeGreen, Color.DodgerBlue, Color.Red};
 
 		int amountOfVeryHard;
 		int amountOfHard;
 		int amountOfMedium;
 
+		int difficulty = 3;
+		int seed = 0;
+
 		List<XmlNode> theBingoBoard = new List<XmlNode>();
+
+		private Hotkeys hotkeys;
+		IntPtr thisWindow;
+
+		[DllImport("user32.dll")]
+		private static extern bool RegisterHotkey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+		[DllImport("user32.dll")]
+		private static extern bool UnregisterHotkey(IntPtr hWnd, int id);
+
+
+
+
 
 		public Form1() {
 			InitializeComponent();
 		}
 
+
+
+
 		private void Form1_Load(object sender, EventArgs e) {
-			//https://github.com/Joshimuz/mcbingo/blob/master/bingo.js
+
+			thisWindow = FindWindow(null, "Bungo");
+			hotkeys = new Hotkeys(thisWindow);
+			hotkeys.RegisterHotkeys();
 
 			string[] files = Directory.GetDirectories(@"Goals\");
 			for (int i = 0; i < files.Length; i++) {
@@ -67,7 +95,55 @@ namespace Bongo {
 		}
 
 
-		private void generateNewSheet(int uniqueCode) {
+
+
+
+		private void hideBoard(bool toHide) {
+			foreach (Label l in labels) {
+				l.Visible = !toHide;
+			}
+			unhideButton.Visible = toHide;
+		}
+
+
+
+
+
+		private void generateUID() {
+			int uID;
+			if (!string.IsNullOrEmpty(uIDBox.Text)) {
+				uID = int.Parse(uIDBox.Text);
+				seedDisplayBox.Text = uID.ToString();
+				if (uID % 10000000 / 1000000 == 0 || uID % 10000000 / 1000000 >= 6) {
+					trackBar1.Value = uID % 10000000 / 1000000;
+				}
+				else {
+					trackBar1.Value = 3;
+				}
+				textBox1.Text = (uID % 100000).ToString();
+			}
+			else {
+				if (string.IsNullOrEmpty(textBox1.Text)) {
+					Random rand = new Random();
+					seed = rand.Next(0, 100000);
+				}
+				else {
+					seed = Math.Abs(int.Parse(textBox1.Text));
+				}
+				uID = difficulty * 1000000 + seed;
+				seedDisplayBox.Text = uID.ToString();
+			}
+		}
+
+
+
+
+
+		private void generateNewSheet() {
+
+			generateUID();
+			
+			int uniqueCode = int.Parse(seedDisplayBox.Text);
 
 			// Board info display on screen
 			XmlDocument doc = new XmlDocument();
@@ -75,8 +151,10 @@ namespace Bongo {
 			XmlNode node = doc.DocumentElement.SelectSingleNode("info");
 			if (node.Attributes["title"] == null || node.Attributes["description"] == null) {
 				boardInfoBox.Text = "This goals file seems to have no title & description";
+				goalInfoBox.Text = boardInfoBox.Text;
 			}
 			boardInfoBox.Text = node.Attributes["title"].InnerText + Environment.NewLine + Environment.NewLine + node.Attributes["description"].InnerText;
+			goalInfoBox.Text = boardInfoBox.Text;
 
 			// Sort goals by difficulty
 			XmlNodeList goalsAll = doc.DocumentElement.GetElementsByTagName("goal");
@@ -84,6 +162,8 @@ namespace Bongo {
 			List<XmlNode> goalsHard = new List<XmlNode>();
 			List<XmlNode> goalsMedium = new List<XmlNode>();
 			List<XmlNode> goalsEasy = new List<XmlNode>();
+
+			theBingoBoard.Clear();
 
 			foreach (XmlNode goal in goalsAll) {
 				if (goal.Attributes["difficulty"] != null)
@@ -102,10 +182,12 @@ namespace Bongo {
 							break;
 						default:
 							boardInfoBox.Text = "Error: The goal '" + goal.Attributes["name"].InnerText + "' has no difficulty set!" + Environment.NewLine + boardInfoBox.Text;
+							goalInfoBox.Text = boardInfoBox.Text;
 							break;
 					}
 				else {
 					boardInfoBox.Text = "Error: The goal '" + goal.Attributes["name"].InnerText + "' has no difficulty set!" + Environment.NewLine + boardInfoBox.Text;
+					goalInfoBox.Text = boardInfoBox.Text;
 				}
 			}
 			//Debug.WriteLine(nodeListA[i].Attributes["name"].InnerText);
@@ -183,6 +265,7 @@ namespace Bongo {
 			}
 			if (amountOfHard + amountOfMedium + amountOfVeryHard < 25 - goalsEasy.Count) {
 				boardInfoBox.Text = "Uh oh, there seem to not be enough easy goals to create a board on this difficulty";
+				goalInfoBox.Text = boardInfoBox.Text;
 				return;
 			}
 
@@ -222,7 +305,6 @@ namespace Bongo {
 
 
 			for (int i = 0; i < 25; i++) {
-				Debug.WriteLine(sheetLayout[i]);
 				switch (sheetLayout[i]) {
 					case 1:
 						// medium goal
@@ -239,12 +321,14 @@ namespace Bongo {
 						goalsHard.RemoveAt(goalToAddH);
 						break;
 					case 3:
+						//very hard goal
 						int goalToAddV = rand.Next(goalsVeryHard.Count);
 						theBingoBoard.Add(goalsVeryHard[goalToAddV]);
 						labels[i].Text = goalsVeryHard[goalToAddV].Attributes["name"].InnerText;
 						goalsVeryHard.RemoveAt(goalToAddV);
 						break;
 					default:
+						//easy goal
 						int goalToAddE = rand.Next(goalsEasy.Count);
 						theBingoBoard.Add(goalsEasy[goalToAddE]);
 						labels[i].Text = goalsEasy[goalToAddE].Attributes["name"].InnerText;
@@ -256,10 +340,160 @@ namespace Bongo {
 
 
 
-		private void button1_Click(object sender, EventArgs e) {
-			generateNewSheet(int.Parse(seedDisplayBox.Text));
+
+
+		#region board tile controls
+		// Upon clicking on a tile, either select it, or change its color if it already is.
+		private void mouseTileClick(Label clickedLabel, bool leftMouseButton) {
+			int clickedLabelIndex = Array.FindIndex(labels, item => item == clickedLabel);
+			if (selectedLabel == clickedLabelIndex) {
+				if (leftMouseButton) {
+					int colorIndexR = Array.FindIndex(colors, item => item == clickedLabel.BackColor);
+					clickedLabel.BackColor = colors[(colorIndexR + 1) % colors.Length];
+				}
+				else {
+					int colorIndexL = Array.FindIndex(colors, item => item == clickedLabel.BackColor);
+					clickedLabel.BackColor = colors[(colorIndexL + colors.Length - 1) % colors.Length];
+				}
+			}
+			else {
+				if (selectedLabel != 25) {
+					Point locationToPutA = new Point(labels[selectedLabel].Location.X + 5, labels[selectedLabel].Location.Y + 5);
+					labels[selectedLabel].Location = locationToPutA;
+					Font fontToPutA = new Font(labels[selectedLabel].Font, FontStyle.Regular);
+					labels[selectedLabel].Font = fontToPutA;
+					Size sizeToPutA = new Size(labels[selectedLabel].Size.Height - 10, labels[selectedLabel].Size.Width - 10);
+					labels[selectedLabel].Size = sizeToPutA;
+				}
+				selectedLabel = clickedLabelIndex;
+				Point locationToPutB = new Point(labels[selectedLabel].Location.X - 5, labels[selectedLabel].Location.Y - 5);
+				labels[selectedLabel].Location = locationToPutB;
+				Font fontToPutB = new Font(labels[selectedLabel].Font, FontStyle.Bold);
+				labels[selectedLabel].Font = fontToPutB;
+				Size sizeToPutB = new Size(labels[selectedLabel].Size.Height + 10, labels[selectedLabel].Size.Width + 10);
+				labels[selectedLabel].Size = sizeToPutB;
+				if (selectedLabel <= theBingoBoard.Count) {
+					if (theBingoBoard[selectedLabel].Attributes["description"] != null) {
+						goalInfoBox.Text = theBingoBoard[selectedLabel].Attributes["description"].InnerText;
+					}
+					else {
+						goalInfoBox.Text = "";
+					}
+				}
+			}
 		}
 
+		private void hotkeyTileMove(int action) {
+			if (action <= 50) {
+				if (selectedLabel != 25) {
+					Point locationToPutA = new Point(labels[selectedLabel].Location.X + 5, labels[selectedLabel].Location.Y + 5);
+					labels[selectedLabel].Location = locationToPutA;
+					Font fontToPutA = new Font(labels[selectedLabel].Font, FontStyle.Regular);
+					labels[selectedLabel].Font = fontToPutA;
+					Size sizeToPutA = new Size(labels[selectedLabel].Size.Height - 10, labels[selectedLabel].Size.Width - 10);
+					labels[selectedLabel].Size = sizeToPutA;
+				}
+				else {
+					selectedLabel = 0;
+				}
+				selectedLabel = (selectedLabel + 25 + action) % 25;
+				Point locationToPutB = new Point(labels[selectedLabel].Location.X - 5, labels[selectedLabel].Location.Y - 5);
+				labels[selectedLabel].Location = locationToPutB;
+				Font fontToPutB = new Font(labels[selectedLabel].Font, FontStyle.Bold);
+				labels[selectedLabel].Font = fontToPutB;
+				Size sizeToPutB = new Size(labels[selectedLabel].Size.Height + 10, labels[selectedLabel].Size.Width + 10);
+				labels[selectedLabel].Size = sizeToPutB;
+				if (selectedLabel <= theBingoBoard.Count) {
+					if (theBingoBoard[selectedLabel].Attributes["description"] != null) {
+						goalInfoBox.Text = theBingoBoard[selectedLabel].Attributes["description"].InnerText;
+					}
+					else {
+						goalInfoBox.Text = "";
+					}
+				}
+			}
+		}
 
+		private void hotkeyTileColorize(int action) {
+			int colorIndexL = Array.FindIndex(colors, item => item == labels[selectedLabel].BackColor);
+			labels[selectedLabel].BackColor = colors[(colorIndexL + colors.Length + action) % colors.Length];
+		}
+
+		protected override void WndProc(ref Message keyPressed) {
+			if (keyPressed.Msg == 0x0312) {
+				int key = keyPressed.WParam.ToInt32();
+				if (!unhideButton.Visible) {
+					switch (key) {
+						default:
+							break;
+						case 0: //up
+							hotkeyTileMove(20);
+							break;
+						case 1: //downm
+							hotkeyTileMove(5);
+							break;
+						case 2: //left
+							hotkeyTileMove(24);
+							break;
+						case 3: //rght
+							hotkeyTileMove(1);
+							break;
+						case 4: //colorback
+							hotkeyTileColorize(-1);
+							break;
+						case 5: //colornext
+							hotkeyTileColorize(1);
+							break;
+					}
+				}
+				else if (key == 6) {
+					hideBoard(false);
+				}
+			}
+			base.WndProc(ref keyPressed);
+		}
+		#endregion	
+
+
+
+		private void button1_Click(object sender, EventArgs e) {
+			hideBoard(checkBox1.Checked);
+			generateNewSheet();
+			tabControl1.SelectedTab = tabPage1;
+		}
+
+		private void hideButton_Click(object sender, EventArgs e) {
+			hideBoard(false);
+		}
+
+		private void tile_Click(object sender, MouseEventArgs e) {
+			Label clickedLabel = sender as Label;
+			mouseTileClick(clickedLabel, e.Button == MouseButtons.Left);
+		}
+
+		private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+			hotkeys.UnregisterHotkeys();
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e) {
+			int a;
+			if (!int.TryParse(textBox1.Text, out a)) {
+				textBox1.Clear();
+			}
+			generateUID();
+		}
+
+		private void uIDBox_TextChanged(object sender, EventArgs e) {
+			int a;
+			if (!int.TryParse(textBox1.Text, out a)) {
+				uIDBox.Clear();
+			}
+			generateUID();
+		}
+
+		private void trackBar1_Scroll(object sender, EventArgs e) {
+			difficulty = trackBar1.Value;
+			generateUID();
+		}
 	}
 }

@@ -42,8 +42,8 @@
       <goal name="Hard goal 5" description="AfasdfasdfasfaA" difficulty="2"></goal>
       <goal name="Cure cancer" description="AASADasdfasFSDFSD" difficulty="3"></goal>
       <goal name="Travel to Mars" description="AASADfffFSDFSD" difficulty="3"></goal>
-      <goal name="Create self-aware AI" description="AASADfddddFSDFSD" difficulty="3"></goal>
-      <goal name="Go to sleep" description="AASADFSDFSD" difficulty="3"></goal>
+      <goal name="A goal with no description set" difficulty="3"></goal>
+      <goal name="A goal with an extremely long name (yes, really long) and now it's even longer" description="AASADFSDFSD" difficulty="3"></goal>
       <goal name="Another poorly configured goal" description="AAFFFDFSDF"></goal>
     </veryhardgoals>
   </goals>

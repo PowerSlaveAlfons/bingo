@@ -1,0 +1,48 @@
+<bingoals>
+	<info title="Generals" description="Play 8 player game and achieve two lines (hor. ver. and/or diag.)"></info>
+  <goals>
+      <!-- unit ownership -->
+      <goal name="radar van" description="Build or steal a radar van" difficulty="0"></goal>
+      <goal name="Technical" description="Build or steal a technical" difficulty="0"></goal>
+      <goal name="100 radar vans" description="Have 100 radar vans on the field simultaneously" difficulty="0"></goal>
+      <goal name="Power Threesome" description="Have a Jarmen Kell, Black Lotus and Colonel Burton on the field" difficulty="2"></goal>
+      <goal name="I Build For China" description="Build a Chinese building" difficulty="0"></goal>
+
+      <!-- building ownership -->
+      <goal name="50 power plants" description="Fusion or Nuclear, or both. Just need to build or capture 50 total simultaneously." difficulty="1"></goal>
+      <goal name="20 black markets" description="" difficulty="Must have 20 simultaneously"></goal>
+      <goal name="3 strategy centers" description="By capturing or using different dozers" difficulty="3"></goal>
+      <goal name="3 different command centers" description="Can be of the same faction, but must have different specialties(logo on the ground in front). Must both be standing simultaneously." difficulty="2"></goal>
+      <goal name="5 command centers" description="Must be standing simultaneously. Can be acquired by any means necessary." difficulty="1"></goal>
+      
+      <!-- unit/building restriction -->
+      <goal name="Never build: Overlord/Emperor" description="Never build emperor or overlord tanks. Stealing them is fine." difficulty="0"></goal>
+      <goal name="Never build: tunnel network" description="Never build any tunnels. Includes sneak attack tunnels." difficulty="1"></goal>
+      <goal name="Never build: barracks" description="No building of a barracks allowed. Capturing is fine." difficulty="2"></goal>
+      <goal name="Never build: Supply trucks" description="May only acquire them by stealing them, or the ones that come free with a supply center" difficulty="1"></goal>
+      <goal name="No general's promotion" description="Not allowed to pick a general's promotion ability" difficulty="2"></goal>
+
+      <!-- veterancy -->
+      <goal name="Level 3 toxin tractor" description="Just have one on the field" difficulty="3"></goal>
+      <goal name="Level 3 nuke cannon" description="Just have one on the field" difficulty="1"></goal>
+      <goal name="Level 3 microwave tank" description="Just have one on the field" difficulty="3"></goal>
+
+      <!-- Upgrades -->
+      <goal name="Every upgrade" description="Buy every upgrade of your starting general. Captured factions/generals not required." difficulty="0"></goal>
+      <goal name="Thank you for the new shoes" description="Buy some shoes for your workers." difficulty="0"></goal>
+
+      <!-- Superweapon -->
+      <goal name="fire 5 particle cannons" description="Five different cannons, not one cannon five times" difficulty="0"></goal>
+      <goal name="With their own weaponry" description="Destroy an enemy building with their own superweapon by capturing it then launching it. Must be the same enemy." difficulty="2"></goal>
+      <goal name="Scudstorm" description="Launch a scudstorm" difficulty="0"></goal>
+
+      <!-- Misc -->
+      <goal name="Destroy a building with toxin troopers" description="You must destroy it using only toxin troopers" difficulty="2"></goal>
+      <goal name="Steal money from enemy" description="By hacking or infiltrating their supply center" difficulty="1"></goal>
+      <goal name="I hate my commanders anyway" description="Initial command center must be sold before starting construction on a supply center (arms dealer for GLA)" difficulty="3"></goal>
+      <goal name="Drop a napalm bomb" description="Hehehe" difficulty="0"></goal>
+      <goal name="Capture 3 tech buildings" description="Any 3 tech buildings count. Can be of the same or different types. Don't need to own them simultaneously, but a recaptured building doesn't count twice." difficulty="0"></goal>
+      <goal name="Pilot Saver" description="Put a pilot who ejected from a vehicle into a new vehicle" difficulty="1"></goal>
+      <goal name="Garrison the building" description="Garrison a civilian building." difficulty="0"></goal>
+  </goals>
+</bingoals>
