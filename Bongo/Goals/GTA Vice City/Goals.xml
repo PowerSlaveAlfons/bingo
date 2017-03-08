@@ -211,6 +211,9 @@ Also you aren't allowed to reset the game to do objectives you lock yourself out
     <goal name="No parked vehicle spawns" description="It is not allowed to take parked vehicles. All cars must be stolen from a driver on the road. Previously stolen cars may be entered again, and cars required for missions (such as Lance's Infernus on Back Alley Brawl) are excepted. Includes vehicles for PCJ Playground etc, these must be stolen off the road first. (Except for Top Fun vans)" difficulty="2"></goal>
     <goal name="Admiral meets Mansion" description="Drive Ken's White Admiral inside Diaz's/Tommy's mansion on Starfish Island" difficulty="2"></goal>
     <goal name="Accuracy > 90%" description="Have over 90% accuracy at the end of the run" difficulty="2"></goal>
-    
+    <goal name="% / 5" description="In game percentage (truncated, as it appears in stats) must be evenly divisible by 5 at the end of the run" difficulty="0"></goal>
+    <goal name="Good Citizen" description="Earn the Good Citizen / Nice Guy bonus" difficulty="0"></goal>    
+
+
   </goals>
 </bingoals>
