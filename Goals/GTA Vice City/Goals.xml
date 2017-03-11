@@ -622,7 +622,7 @@ Difficulty:
                    difficulty="3"
                    length="0"></goal>
     <goal name="No Helicopters"
-                   description="Don't use Helicopters. 'Demolition Man' and RC Raider Pickup excluded."
+                   description="Don't use Helicopters. 'Demolition Man', Chopper Checkpoint and RC Raider Pickup excluded."
                    difficulty="1"
                    length="0"></goal>
     <goal name="Mission Failer"
