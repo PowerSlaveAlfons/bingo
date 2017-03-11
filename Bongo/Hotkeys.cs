@@ -27,17 +27,18 @@ namespace Bongo {
 			_hWnd = hWnd;
 		}
 
-		public void RegisterHotkeys() {
-			RegisterHotKey(_hWnd, 0, 2, (uint)Keys.I); //up
-			RegisterHotKey(_hWnd, 1, 2, (uint)Keys.K); //down
-			RegisterHotKey(_hWnd, 2, 2, (uint)Keys.J); //left
-			RegisterHotKey(_hWnd, 3, 2, (uint)Keys.L); //right
-			RegisterHotKey(_hWnd, 4, 2, (uint)Keys.U); //previous color
-			RegisterHotKey(_hWnd, 5, 2, (uint)Keys.O); //next color
-			RegisterHotKey(_hWnd, 6, 2, (uint)Keys.M); //special action
+		public void RegisterHotkeys(uint hotkeyU, uint hotkeyD, uint hotkeyL, uint hotkeyR, uint hotkeyP, uint hotkeyN, uint hotkeyH, uint hotkeyT, uint modifierU, uint modifierD, uint modifierL, uint modifierR, uint modifierP, uint modifierN, uint modifierH, uint modifierT) {
+			RegisterHotKey(_hWnd, 0, modifierU, hotkeyU); //up
+			RegisterHotKey(_hWnd, 1, modifierD, hotkeyD); //down
+			RegisterHotKey(_hWnd, 2, modifierL, hotkeyL); //left
+			RegisterHotKey(_hWnd, 3, modifierR, hotkeyR); //right
+			RegisterHotKey(_hWnd, 4, modifierP, hotkeyP); //previous color
+			RegisterHotKey(_hWnd, 5, modifierN, hotkeyN); //next color
+			RegisterHotKey(_hWnd, 6, modifierH, hotkeyH); //special action
+			RegisterHotKey(_hWnd, 7, modifierT, hotkeyT); //Toggle hotkeyhs
 		}
 
-		public void UnregisterHotkeys() {
+		public void UnregisterHotkeys(bool includingToggle) {
 			UnregisterHotKey(_hWnd, 0);
 			UnregisterHotKey(_hWnd, 1);
 			UnregisterHotKey(_hWnd, 2);
@@ -45,6 +46,9 @@ namespace Bongo {
 			UnregisterHotKey(_hWnd, 4);
 			UnregisterHotKey(_hWnd, 5);
 			UnregisterHotKey(_hWnd, 6);
+			if (includingToggle) {
+				UnregisterHotKey(_hWnd, 7);
+			}
 		}
 
 	}

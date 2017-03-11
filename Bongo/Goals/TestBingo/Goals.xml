@@ -1,14 +1,15 @@
 <bingoals>
+<version version="1"></version>	
 	<info title="Test Bingo Goals" description="This is a file using for testing the bingo tool"></info>
   <goals>
     <veryhardgoals>
-      <goal name="Easy goal 1" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 2" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 3" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 4" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 5" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 6" description="AA" difficulty="0"></goal>
-      <goal name="Easy goal 7" description="AA" difficulty="0"></goal>
+      <goal name="Easy goal 1" description="AA" difficulty="0" length="5"></goal>
+      <goal name="Easy goal 2" description="AA" difficulty="0" length="1"></goal>
+      <goal name="Easy goal 3" description="AA" difficulty="0" length="2"></goal>
+      <goal name="Easy goal 4" description="AA" difficulty="0" length="3"></goal>
+      <goal name="Easy goal 5" description="AA" difficulty="0" length="1"></goal>
+      <goal name="Easy goal 6" description="AA" difficulty="0" length="2"></goal>
+      <goal name="Easy goal 7" description="AA" difficulty="0" length="3"></goal>
       <goal name="Easy goal 8" description="AA" difficulty="0"></goal>
       <goal name="Easy goal 9" description="AA" difficulty="0"></goal>
       <goal name="Easy goal A" description="AA" difficulty="0"></goal>

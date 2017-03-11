@@ -122,4 +122,8 @@
 * If someone else has already generated a board, then have them send the Unique Board ID to you.
 * Make sure your goals files match.</value>
   </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>This function I used for global hotkeys is retarded, and therefore any global hotkeys bound will not do anything anymore except for act as hotkeys for this tool. Until I find an alternative function for hotkeys, I recommend you either use hotkeys with modifiers (such as control) or don't forget the Unhide Board hotkey when using hotkeys without modifiers.
+Anyway, enjoy this shitty UI</value>
+  </data>
 </root>

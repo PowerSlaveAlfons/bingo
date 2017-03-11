@@ -81,11 +81,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Goals\Generals\Goals.xml">
+    <Content Include="BingoConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Goals\GTA Vice City\Goals.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Goals\TestBingo\Goals.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -93,7 +94,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Goals\Generals\Images\" />
     <Folder Include="Goals\TestBingo\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
